@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Üye Yönetimi - Kütüphane Sistemi</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1>📚 Kütüphane Yönetim Sistemi</h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="kitaplar.html">Kitaplar</a></li>
+                <li><a href="uyeler.html" class="active">Üyeler</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div id="alertBox" class="alert"></div>
+
+        <!-- Üye Ekleme/Güncelleme Formu -->
+        <div class="form-container">
+            <h2 id="formTitle">👤 Yeni Üye Ekle</h2>
+            <form id="memberForm">
+                <input type="hidden" id="memberId" value="">
+                
+                <div class="form-group">
+                    <label for="memberName">Ad *</label>
+                    <input type="text" id="memberName" required placeholder="Örn: Ahmet">
+                </div>
+
+                <div class="form-group">
+                    <label for="memberSurname">Soyad *</label>
+                    <input type="text" id="memberSurname" required placeholder="Örn: Yılmaz">
+                </div>
+
+                <div class="form-group">
+                    <label for="memberEmail">E-posta *</label>
+                    <input type="email" id="memberEmail" required placeholder="Örn: ahmet@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="memberPhone">Telefon</label>
+                    <input type="tel" id="memberPhone" placeholder="Örn: 0532 123 45 67">
+                </div>
+
+                <div class="form-group">
+                    <label for="memberAddress">Adres</label>
+                    <textarea id="memberAddress" rows="2" placeholder="Üye adresi..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="memberBirthDate">Doğum Tarihi</label>
+                    <input type="date" id="memberBirthDate">
+                </div>
+
+                <div class="form-group">
+                    <label for="memberGender">Cinsiyet</label>
+                    <select id="memberGender">
+                        <option value="">Seçiniz...</option>
+                        <option value="Erkek">Erkek</option>
+                        <option value="Kadın">Kadın</option>
+                        <option value="Diğer">Diğer</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="memberType">Üyelik Tipi</label>
+                    <select id="memberType">
+                        <option value="Standart">Standart</option>
+                        <option value="Öğrenci">Öğrenci</option>
+                        <option value="Akademisyen">Akademisyen</option>
+                        <option value="Premium">Premium</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="memberStatus">Üye Durumu *</label>
+                    <select id="memberStatus" required>
+                        <option value="Aktif">Aktif</option>
+                        <option value="Pasif">Pasif</option>
+                        <option value="Engellenmiş">Engellenmiş</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="memberNotes">Notlar</label>
+                    <textarea id="memberNotes" rows="2" placeholder="Üye hakkında notlar..."></textarea>
+                </div>
+
+                <div style="display: flex; gap: 10px;">
+                    <button type="submit" class="btn btn-success" id="submitBtn">
+                        ✓ Kaydet
+                    </button>
+                    <button type="button" class="btn btn-warning" id="cancelBtn" style="display: none;">
+                        ✗ İptal
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Filtre Seçenekleri -->
+        <div class="form-container">
+            <h3>🔍 Filtrele</h3>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <div class="form-group" style="flex: 1; min-width: 200px; margin-bottom: 0;">
+                    <label for="filterStatus">Duruma Göre</label>
+                    <select id="filterStatus" onchange="filterMembers()">
+                        <option value="">Tümü</option>
+                        <option value="Aktif">Aktif</option>
+                        <option value="Pasif">Pasif</option>
+                        <option value="Engellenmiş">Engellenmiş</option>
+                    </select>
+                </div>
+                <div class="form-group" style="flex: 1; min-width: 200px; margin-bottom: 0;">
+                    <label for="filterType">Üyelik Tipine Göre</label>
+                    <select id="filterType" onchange="filterMembers()">
+                        <option value="">Tümü</option>
+                        <option value="Standart">Standart</option>
+                        <option value="Öğrenci">Öğrenci</option>
+                        <option value="Akademisyen">Akademisyen</option>
+                        <option value="Premium">Premium</option>
+                    </select>
+                </div>
+                <div class="form-group" style="flex: 1; min-width: 200px; margin-bottom: 0;">
+                    <label for="searchMember">Ara</label>
+                    <input type="text" id="searchMember" placeholder="Ad, soyad veya e-posta..." oninput="filterMembers()">
+                </div>
+            </div>
+        </div>
+
+        <!-- Üye Listesi -->
+        <div class="table-container">
+            <h2>👥 Üye Listesi</h2>
+            <div id="memberTableContainer">
+                <table id="memberTable">
+                    <thead>
+                        <tr>
+                            <th>Ad Soyad</th>
+                            <th>E-posta</th>
+                            <th>Telefon</th>
+                            <th>Üyelik Tipi</th>
+                            <th>Durum</th>
+                            <th>Kayıt Tarihi</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody id="memberTableBody">
+                        <!-- Üyeler buraya dinamik olarak eklenecek -->
+                    </tbody>
+                </table>
+                <div id="emptyState" class="empty-state" style="display: none;">
+                    <div style="font-size: 64px;">👥</div>
+                    <h3>Henüz üye eklenmemiş</h3>
+                    <p>Yukarıdaki formu kullanarak yeni üye ekleyebilirsiniz.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Silme Onay Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Silme Onayı</h3>
+                <span class="close" onclick="closeDeleteModal()">&times;</span>
+            </div>
+            <p>Bu üyeyi silmek istediğinizden emin misiniz?</p>
+            <p><strong id="deleteMemberName"></strong></p>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-danger" onclick="confirmDelete()">Evet, Sil</button>
+                <button class="btn btn-warning" onclick="closeDeleteModal()">İptal</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Durum Değiştirme Modal -->
+    <div id="statusModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Üye Durumunu Değiştir</h3>
+                <span class="close" onclick="closeStatusModal()">&times;</span>
+            </div>
+            <p><strong id="statusMemberName"></strong></p>
+            <div class="form-group">
+                <label for="newStatus">Yeni Durum</label>
+                <select id="newStatus" class="form-control">
+                    <option value="Aktif">Aktif</option>
+                    <option value="Pasif">Pasif</option>
+                    <option value="Engellenmiş">Engellenmiş</option>
+                </select>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-success" onclick="confirmStatusChange()">Değiştir</button>
+                <button class="btn btn-warning" onclick="closeStatusModal()">İptal</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="uyeler.js"></script>
+</body>
+</html>
+

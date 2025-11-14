@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitap Yönetimi - Kütüphane Sistemi</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1>📚 Kütüphane Yönetim Sistemi</h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="kitaplar.html" class="active">Kitaplar</a></li>
+                <li><a href="uyeler.html">Üyeler</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div id="alertBox" class="alert"></div>
+
+        <!-- Kitap Ekleme/Güncelleme Formu -->
+        <div class="form-container">
+            <h2 id="formTitle">📖 Yeni Kitap Ekle</h2>
+            <form id="bookForm">
+                <input type="hidden" id="bookId" value="">
+                
+                <div class="form-group">
+                    <label for="bookTitle">Kitap Adı *</label>
+                    <input type="text" id="bookTitle" required placeholder="Örn: Suç ve Ceza">
+                </div>
+
+                <div class="form-group">
+                    <label for="bookAuthor">Yazar *</label>
+                    <input type="text" id="bookAuthor" required placeholder="Örn: Dostoyevski">
+                </div>
+
+                <div class="form-group">
+                    <label for="bookIsbn">ISBN *</label>
+                    <input type="text" id="bookIsbn" required placeholder="Örn: 978-3-16-148410-0">
+                </div>
+
+                <div class="form-group">
+                    <label for="bookPublisher">Yayınevi</label>
+                    <input type="text" id="bookPublisher" placeholder="Örn: İş Bankası Kültür Yayınları">
+                </div>
+
+                <div class="form-group">
+                    <label for="bookYear">Yayın Yılı</label>
+                    <input type="number" id="bookYear" min="1000" max="2100" placeholder="Örn: 2020">
+                </div>
+
+                <div class="form-group">
+                    <label for="bookPages">Sayfa Sayısı</label>
+                    <input type="number" id="bookPages" min="1" placeholder="Örn: 450">
+                </div>
+
+                <div class="form-group">
+                    <label for="bookCategory">Kategori</label>
+                    <select id="bookCategory">
+                        <option value="">Seçiniz...</option>
+                        <option value="Roman">Roman</option>
+                        <option value="Hikaye">Hikaye</option>
+                        <option value="Şiir">Şiir</option>
+                        <option value="Bilim">Bilim</option>
+                        <option value="Tarih">Tarih</option>
+                        <option value="Felsefe">Felsefe</option>
+                        <option value="Deneme">Deneme</option>
+                        <option value="Biyografi">Biyografi</option>
+                        <option value="Çocuk">Çocuk</option>
+                        <option value="Diğer">Diğer</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="bookDescription">Açıklama</label>
+                    <textarea id="bookDescription" rows="3" placeholder="Kitap hakkında kısa açıklama..."></textarea>
+                </div>
+
+                <div style="display: flex; gap: 10px;">
+                    <button type="submit" class="btn btn-success" id="submitBtn">
+                        ✓ Kaydet
+                    </button>
+                    <button type="button" class="btn btn-warning" id="cancelBtn" style="display: none;">
+                        ✗ İptal
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Kitap Listesi -->
+        <div class="table-container">
+            <h2>📚 Kitap Listesi</h2>
+            <div id="bookTableContainer">
+                <table id="bookTable">
+                    <thead>
+                        <tr>
+                            <th>Kitap Adı</th>
+                            <th>Yazar</th>
+                            <th>ISBN</th>
+                            <th>Yayınevi</th>
+                            <th>Yıl</th>
+                            <th>Kategori</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookTableBody">
+                        <!-- Kitaplar buraya dinamik olarak eklenecek -->
+                    </tbody>
+                </table>
+                <div id="emptyState" class="empty-state" style="display: none;">
+                    <div style="font-size: 64px;">📚</div>
+                    <h3>Henüz kitap eklenmemiş</h3>
+                    <p>Yukarıdaki formu kullanarak yeni kitap ekleyebilirsiniz.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Silme Onay Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Silme Onayı</h3>
+                <span class="close" onclick="closeDeleteModal()">&times;</span>
+            </div>
+            <p>Bu kitabı silmek istediğinizden emin misiniz?</p>
+            <p><strong id="deleteBookName"></strong></p>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-danger" onclick="confirmDelete()">Evet, Sil</button>
+                <button class="btn btn-warning" onclick="closeDeleteModal()">İptal</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="kitaplar.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,212 @@
+====================================================================
+   KÜTÜPHANE YÖNETİM SİSTEMİ - ÇALIŞTIRMA KILAVUZU
+====================================================================
+
+PROJE HAKKINDA:
+--------------
+Bu proje Internet Programlama dersi için hazırlanmış bir kütüphane
+yönetim sistemidir. Kitap ve üye yönetimi için tam CRUD işlemleri
+(Create, Read, Update, Delete) içermektedir.
+
+ÖZELLİKLER:
+----------
+✓ Kitap Ekle/Sil/Güncelle/Listele
+✓ Üye Ekle/Sil/Güncelle/Listele
+✓ Üye Durumu Yönetimi (Aktif/Pasif/Engellenmiş)
+✓ Filtreleme ve Arama
+✓ Modern ve Responsive Tasarım
+✓ Demo Veriler (Otomatik Yüklenir)
+
+====================================================================
+ÇALIŞTIRMA YÖNTEMLERİ
+====================================================================
+
+YÖNTEM 1: Python ile (ÖNERİLEN)
+--------------------------------
+1. Terminal açın
+2. Proje dizinine gidin:
+   cd /home/abali/InternetProgramlama/Homework_4
+
+3. Aşağıdaki komutlardan birini çalıştırın:
+   
+   python3 server.py
+   
+   veya
+   
+   python3 -m http.server 8000
+
+4. Tarayıcınızda açın:
+   http://localhost:8000
+
+
+YÖNTEM 2: PHP ile
+-----------------
+1. Terminal açın
+2. Proje dizinine gidin:
+   cd /home/abali/InternetProgramlama/Homework_4
+
+3. Komutu çalıştırın:
+   php -S localhost:8000
+
+4. Tarayıcınızda açın:
+   http://localhost:8000
+
+
+YÖNTEM 3: Node.js ile
+---------------------
+1. http-server kurun (bir kere):
+   npm install -g http-server
+
+2. Proje dizinine gidin:
+   cd /home/abali/InternetProgramlama/Homework_4
+
+3. Komutu çalıştırın:
+   http-server -p 8000
+
+4. Tarayıcınızda açın:
+   http://localhost:8000
+
+
+YÖNTEM 4: Doğrudan HTML Dosyası (Basit Test İçin)
+-------------------------------------------------
+index.html dosyasını çift tıklayarak tarayıcıda açabilirsiniz.
+Not: Bazı tarayıcılarda LocalStorage kısıtlamaları olabilir.
+
+====================================================================
+KULLANIM
+====================================================================
+
+ANA SAYFA (index.html)
+---------------------
+- Sistem istatistiklerini gösterir
+- Toplam kitap ve üye sayısı
+- Hızlı navigasyon
+
+KİTAP YÖNETİMİ (kitaplar.html)
+-----------------------------
+✓ Yeni Kitap Ekle:
+  - Formu doldurun
+  - "Kaydet" butonuna tıklayın
+  
+✓ Kitap Düzenle:
+  - Listeden "✏️ Düzenle" butonuna tıklayın
+  - Bilgileri güncelleyin
+  - "Güncelle" butonuna tıklayın
+  
+✓ Kitap Sil:
+  - Listeden "🗑️ Sil" butonuna tıklayın
+  - Onaylayın
+
+ÜYE YÖNETİMİ (uyeler.html)
+-------------------------
+✓ Yeni Üye Ekle:
+  - Formu doldurun
+  - "Kaydet" butonuna tıklayın
+  
+✓ Üye Düzenle:
+  - Listeden "✏️" butonuna tıklayın
+  - Bilgileri güncelleyin
+  
+✓ Durum Değiştir:
+  - Listeden "🔄" butonuna tıklayın
+  - Yeni durumu seçin (Aktif/Pasif/Engellenmiş)
+  
+✓ Üye Sil:
+  - Listeden "🗑️" butonuna tıklayın
+  - Onaylayın
+  
+✓ Filtreleme:
+  - Durum filtreleme
+  - Üyelik tipi filtreleme
+  - İsim/email arama
+
+====================================================================
+TEKNİK BİLGİLER
+====================================================================
+
+TEKNOLOJİLER:
+- HTML5
+- CSS3
+- JavaScript (Vanilla)
+- LocalStorage (Tarayıcı tabanlı veri saklama)
+
+VERİ YAPISINDA:
+- Veriler tarayıcının LocalStorage'ında saklanır
+- Her tarayıcı için ayrı veri alanı
+- Demo veriler otomatik yüklenir (ilk açılışta)
+
+DOSYA YAPISI:
+- index.html       : Ana sayfa
+- kitaplar.html    : Kitap yönetimi
+- uyeler.html      : Üye yönetimi
+- styles.css       : Stil dosyası
+- app.js           : Genel JavaScript
+- kitaplar.js      : Kitap JavaScript
+- uyeler.js        : Üye JavaScript
+- server.py        : Python HTTP server
+
+====================================================================
+KONSOL KOMUTLARI
+====================================================================
+
+Tarayıcı konsolunda (F12) kullanılabilir:
+
+clearAllData()     - Tüm verileri temizle
+createDemoData()   - Demo verileri yeniden oluştur
+
+====================================================================
+SORUN GIDERME
+====================================================================
+
+PROBLEM: Port zaten kullanımda
+ÇÖZÜM: Farklı bir port numarası kullanın
+       python3 -m http.server 8080
+
+PROBLEM: LocalStorage çalışmıyor
+ÇÖZÜM: HTTP server kullanın (file:// protokolü yerine http://)
+
+PROBLEM: Veriler kayboldu
+ÇÖZÜM: Tarayıcı önbelleği temizlenmiş olabilir
+       createDemoData() komutu ile demo verileri geri yükleyin
+
+====================================================================
+EKRAN GÖRÜNTÜLERİ ve DEMO
+====================================================================
+
+Demo veriler ilk yüklemede otomatik olarak eklenir:
+
+DEMO KİTAPLAR:
+- Suç ve Ceza (Dostoyevski)
+- Tutunamayanlar (Oğuz Atay)
+- Saatleri Ayarlama Enstitüsü (Tanpınar)
+
+DEMO ÜYELER:
+- Ahmet Yılmaz (Aktif)
+- Ayşe Demir (Aktif - Öğrenci)
+- Mehmet Kaya (Aktif - Premium)
+- Zeynep Çelik (Pasif)
+
+====================================================================
+GEREKSİNİMLER KONTROL LİSTESİ
+====================================================================
+
+✅ En az bir tabloda CRUD işlemleri
+✅ ASP.NET/Dil bağımsız çalışabilir
+✅ Kitap ekle
+✅ Kitap sil
+✅ Kitap güncelle
+✅ Üye ekle
+✅ Üye sil
+✅ Üye güncelle
+✅ Üye durumu yönetimi (Aktif/Pasif/Engellenmiş)
+
+====================================================================
+İLETİŞİM
+====================================================================
+
+Proje: Homework_4
+Ders: Internet Programlama
+Tarih: 2025
+
+====================================================================
+

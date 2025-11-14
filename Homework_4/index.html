@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kütüphane Yönetim Sistemi</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1>📚 Kütüphane Yönetim Sistemi</h1>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Ana Sayfa</a></li>
+                <li><a href="kitaplar.html">Kitaplar</a></li>
+                <li><a href="uyeler.html">Üyeler</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <h2>Hoş Geldiniz!</h2>
+            <p>Kütüphane yönetim sistemine hoş geldiniz. Bu sistem ile kitap ve üye işlemlerini kolayca yönetebilirsiniz.</p>
+        </div>
+
+        <div class="dashboard">
+            <div class="card">
+                <div class="card-icon">📖</div>
+                <h3>Kitap Yönetimi</h3>
+                <p>Kitap ekle, sil, güncelle ve listele</p>
+                <a href="kitaplar.html" class="btn btn-primary">Kitaplara Git</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">👥</div>
+                <h3>Üye Yönetimi</h3>
+                <p>Üye ekle, sil, güncelle ve durum yönetimi</p>
+                <a href="uyeler.html" class="btn btn-primary">Üyelere Git</a>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-box">
+                <h4>Toplam Kitap</h4>
+                <p id="totalBooks">0</p>
+            </div>
+            <div class="stat-box">
+                <h4>Toplam Üye</h4>
+                <p id="totalMembers">0</p>
+            </div>
+            <div class="stat-box">
+                <h4>Aktif Üye</h4>
+                <p id="activeMembers">0</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // İstatistikleri göster
+        document.addEventListener('DOMContentLoaded', function() {
+            const books = JSON.parse(localStorage.getItem('books')) || [];
+            const members = JSON.parse(localStorage.getItem('members')) || [];
+            
+            document.getElementById('totalBooks').textContent = books.length;
+            document.getElementById('totalMembers').textContent = members.length;
+            document.getElementById('activeMembers').textContent = 
+                members.filter(m => m.durum === 'Aktif').length;
+        });
+    </script>
+</body>
+</html>
+
